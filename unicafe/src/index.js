@@ -33,50 +33,23 @@ class App extends React.Component {
   }
 
   handleClick = (arvo) => () => {
-    if (arvo === 'hyva') {
       this.setState((prevState) => {
         return {
-          hyva: prevState.hyva + 1,
+          [arvo]: prevState[arvo] + 1,
           palautteita: prevState.palautteita + 1
         }
       })
     }
-    if (arvo === 'neutraali') {
-      this.setState((prevState) => {
-        return {
-          neutraali: prevState.neutraali + 1,
-          palautteita: prevState.palautteita + 1
-        }
-      })
-    }
-    if (arvo === 'huono') {
-      this.setState((prevState) => {
-        return {
-          huono: prevState.huono + 1,
-          palautteita: prevState.palautteita + 1
-        }
-      })
-    }
-  }
 
-  positiiviset = () => {
-    if (this.state.palautteita === 0) {
-      return 0
-    }
-    return (this.state.hyva/this.state.palautteita *100).toFixed(1) + " %"
-  }
+  positiiviset = () => (this.state.hyva/this.state.palautteita *100).toFixed(1) + " %"
+
 
   keskiarvo = () => {
-    if (this.state.palautteita === 0) {
-      return 0
-    }
     const hyvat = this.state.hyva
     const huonot = this.state.huono * -1
     const keskiarvo = ((hyvat + huonot)/this.state.palautteita).toFixed(2)
     return keskiarvo
-
   }
-
 
   render() {
     return(
@@ -97,8 +70,7 @@ class App extends React.Component {
               keskiarvo={this.keskiarvo()}
               positiiviset={this.positiiviset()}
             />
-          )
-        }
+          )}
       </div>
     )
   }
