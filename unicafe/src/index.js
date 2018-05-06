@@ -13,7 +13,6 @@ const Statistic = (props) =>
 
 const Statistics = (props) =>
   <div>
-    <h2>Statistiikka</h2>
     <Statistic text="hyvä" value={props.hyva}/>
     <Statistic text="neutraali" value={props.neutraali}/>
     <Statistic text="huono" value={props.huono}/>
@@ -78,6 +77,7 @@ class App extends React.Component {
 
   }
 
+
   render() {
     return(
       <div>
@@ -86,13 +86,19 @@ class App extends React.Component {
         <Button handleClick={this.handleClick('hyva')} text="hyvä" />
         <Button handleClick={this.handleClick('neutraali')} text="neutraali" />
         <Button handleClick={this.handleClick('huono')} text="huono" />
-        <Statistics
-          hyva={this.state.hyva}
-          neutraali={this.state.neutraali}
-          huono={this.state.huono}
-          keskiarvo={this.keskiarvo()}
-          positiiviset={this.positiiviset()}
-        />
+        <h2>Statistiikka</h2>
+        {this.state.palautteita === 0 ? (
+            <em>ei yhtään palautetta annettu</em>
+          ) : (
+            <Statistics
+              hyva={this.state.hyva}
+              neutraali={this.state.neutraali}
+              huono={this.state.huono}
+              keskiarvo={this.keskiarvo()}
+              positiiviset={this.positiiviset()}
+            />
+          )
+        }
       </div>
     )
   }
