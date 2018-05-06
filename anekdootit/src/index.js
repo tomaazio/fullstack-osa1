@@ -14,39 +14,39 @@ class App extends React.Component {
     super(props)
     this.state = {
       selected: 0,
-      votes: {
-        0: 0,
-        1: 0,
-        2: 0,
-        3: 0,
-        4: 0,
-        5: 0
-      }
+      votes: [ 0, 0, 0, 0, 0, 0 ],
     }
   }
 
-  vote = (i) => {
-    return () => {
+  vote = (i) => () => {
       const copy = this.state.votes
       copy[i] += 1
       this.setState({votes: copy})
     }
-  }
 
   generateRandom = () => {
     const random = () => Math.floor(Math.random() * (5 + 1) )
     this.setState({selected: random()})
   }
 
+
   render() {
+    const amountOfMostVotes = Math.max(...this.state.votes)
+    const mostVotes = () => {
+      const mostVoted = this.state.votes.indexOf(amountOfMostVotes)
+      return mostVoted
+    }
     return (
       <div>
         {this.props.anecdotes[this.state.selected]}
-        <Votes votes={this.state.votes[this.state.selected]}/>
+        <Votes votes={this.state.votes[this.state.selected]} />
         <div>
-          <Button text="vote" clickHandle={this.vote(this.state.selected)}/>
-          <Button text="next anecdote" clickHandle={this.generateRandom}/>
+          <Button text="vote" clickHandle={this.vote(this.state.selected)} />
+          <Button text="next anecdote" clickHandle={this.generateRandom} />
         </div>
+        <h3>anecdote with the most votes</h3>
+        {this.props.anecdotes[mostVotes()]}
+        <Votes votes={amountOfMostVotes}/>
       </div>
     )
   }
