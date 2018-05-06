@@ -3,22 +3,38 @@ import ReactDOM from 'react-dom'
 import './index.css'
 
 const Button = ({clickHandle, text}) =>
-  <div>
     <button onClick={clickHandle}>
       {text}
     </button>
-  </div>
+
+const Votes = ({votes}) => <div> has {votes} votes </div>
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: 0
+      selected: 0,
+      votes: {
+        0: 0,
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0
+      }
     }
   }
 
-  handleClick = () => {
-    const random = () => Math.floor(Math.random() * (5 - 0 + 1) )
+  vote = (i) => {
+    return () => {
+      const copy = this.state.votes
+      copy[i] += 1
+      this.setState({votes: copy})
+    }
+  }
+
+  generateRandom = () => {
+    const random = () => Math.floor(Math.random() * (5 + 1) )
     this.setState({selected: random()})
   }
 
@@ -26,7 +42,11 @@ class App extends React.Component {
     return (
       <div>
         {this.props.anecdotes[this.state.selected]}
-        <Button text="next anecdote" clickHandle={this.handleClick}/>
+        <Votes votes={this.state.votes[this.state.selected]}/>
+        <div>
+          <Button text="vote" clickHandle={this.vote(this.state.selected)}/>
+          <Button text="next anecdote" clickHandle={this.generateRandom}/>
+        </div>
       </div>
     )
   }
