@@ -8,17 +8,22 @@ const Button = ({ handleClick, text}) =>
   </button>
 
 const Statistic = (props) =>
-  <div>{props.text} {props.value}</div>
+  <tr>
+    <td>{props.text}</td>
+    <td>{props.value}</td>
+  </tr>
 
 
 const Statistics = (props) =>
-  <div>
-    <Statistic text="hyvä" value={props.hyva}/>
-    <Statistic text="neutraali" value={props.neutraali}/>
-    <Statistic text="huono" value={props.huono}/>
-    <Statistic text="keskiarvo" value={props.keskiarvo}/>
-    <Statistic text="positiivisia" value={props.positiiviset}/>
-  </div>
+  <table>
+    <tbody>
+      <Statistic text="hyvä" value={props.hyva}/>
+      <Statistic text="neutraali" value={props.neutraali}/>
+      <Statistic text="huono" value={props.huono}/>
+      <Statistic text="keskiarvo" value={props.keskiarvo}/>
+      <Statistic text="positiivisia" value={props.positiiviset}/>
+    </tbody>
+  </table>
 
 
 class App extends React.Component {
